@@ -1,5 +1,6 @@
 # USA-Locations
-- USA Locations repository defines global vertices and edges for multiple graphs, allowing data to be loaded once and reused in specific local graphs. This ensures enterprise-wide data consistency and integrity, reducing redundancy.
+- USA Locations repository demostrates how to use global vertices and edges for multiple graphs. See the DDLs/Schema/useGlobalSchema.gsql file on how to define and use Global vertices and edges with a local graph. This approach will allowing you to define "reference" data to be loaded once and reused in specific local graphs. This ensures enterprise-wide data consistency and integrity, reducing redundancy.
+  
 - USA Locations data is from the U.S. Census American Community Survey - Year 2023. The data includes Continent, Country, Region, Divison, State, County and City and Demographs.
 
 ## Install and Run
