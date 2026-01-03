@@ -1,0 +1,20 @@
+CREATE OR REPLACE QUERY findCity(STRING city_fips, STRING p_city="Wilmington", STRING state_alias="NC") {
+
+  RS = {};
+  START = {State.*};
+  CITIES = {City.*};
+  STRING citySearch  = "%" + upper(p_city) + "%";
+
+  IF (city_fips !="") THEN
+    RS = SELECT c FROM CITIES:c-(hasCity:hc)-State:s WHERE (c.fips == upper(city_fips));
+
+  ELSE IF (p_city !="" AND state_alias != "") THEN
+    RS = SELECT c FROM START:s-(hasCity:hc)-City:c WHERE (s.alias == upper(state_alias) AND upper(c.name) LIKE citySearch);
+  END;
+
+  PRINT RS;
+}
+UPDATE DESCRIPTION OF QUERY findCity "This query finds a city by either the fips code, or by city name"
+UPDATE DESCRIPTION OF QUERY_PARAM findCity.city_fips "Finds a city by the Federal Information Processing Series (FIPS) code"
+UPDATE DESCRIPTION OF QUERY_PARAM findCity.p_city "Finds a city by name"
+UPDATE DESCRIPTION OF QUERY_PARAM findCity.state_alias "Search for a city in the specified State"

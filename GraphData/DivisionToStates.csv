@@ -1,0 +1,51 @@
+from,to,,division_name
+6,1000,US01,New England Division
+9,2000,US02,New England Division
+8,4000,US04,New England Division
+7,5000,US05,New England Division
+9,6000,US06,New England Division
+8,8000,US08,New England Division
+1,9000,US09,Middle Atlantic Division
+5,10000,US10,Middle Atlantic Division
+5,12000,US12,East North Central Division
+5,13000,US13,East North Central Division
+9,15000,US15,East North Central Division
+8,16000,US16,East North Central Division
+3,17000,US17,East North Central Division
+3,18000,US18,West North Central Division
+4,19000,US19,West North Central Division
+4,20000,US20,West North Central Division
+6,21000,US21,West North Central Division
+7,22000,US22,West North Central Division
+1,23000,US23,West North Central Division
+5,24000,US24,West North Central Division
+1,25000,US25,South Atlantic Division
+3,26000,US26,South Atlantic Division
+4,27000,US27,South Atlantic Division
+6,28000,US28,South Atlantic Division
+4,29000,US29,South Atlantic Division
+8,30000,US30,South Atlantic Division
+4,31000,US31,South Atlantic Division
+8,32000,US32,South Atlantic Division
+1,33000,US33,South Atlantic Division
+2,34000,US34,East South Central Division
+8,35000,US35,East South Central Division
+2,36000,US36,East South Central Division
+5,37000,US37,East South Central Division
+4,38000,US38,West South Central Division
+3,39000,US39,West South Central Division
+7,40000,US40,West South Central Division
+9,41000,US41,West South Central Division
+2,42000,US42,Mountain Division
+1,44000,US44,Mountain Division
+5,45000,US45,Mountain Division
+4,46000,US46,Mountain Division
+6,47000,US47,Mountain Division
+7,48000,US48,Mountain Division
+8,49000,US49,Mountain Division
+1,50000,US50,Mountain Division
+5,51000,US51,Pacific Division
+9,53000,US53,Pacific Division
+5,54000,US54,Pacific Division
+3,55000,US55,Pacific Division
+8,56000,US56,Pacific Division

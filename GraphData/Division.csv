@@ -1,0 +1,10 @@
+primary_id,division_name,division_id,url
+1,New England Division,NED,https://en.wikipedia.org/wiki/New_England
+2,Middle Atlantic Division,MAD,https://en.wikipedia.org/wiki/Mid-Atlantic_(United_States)
+3,East North Central Division,NCED,https://en.wikipedia.org/wiki/East_North_Central_states
+4,West North Central Division,NCWD,https://en.wikipedia.org/wiki/West_North_Central_states
+5,South Atlantic Division,SAD,https://en.wikipedia.org/wiki/South_Atlantic_states
+6,East South Central Division,SCED,https://en.wikipedia.org/wiki/East_South_Central_states
+7,West South Central Division,SCWD,https://en.wikipedia.org/wiki/West_South_Central_states
+8,Mountain Division,WRMD,https://en.wikipedia.org/wiki/Mountain_states
+9,Pacific Division,WRPD,https://en.wikipedia.org/wiki/West_Coast_of_the_United_States

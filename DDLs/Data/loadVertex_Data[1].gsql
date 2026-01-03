@@ -1,0 +1,40 @@
+#
+# Copyright (c) 2025, Custom Discoveries Inc.
+# All rights reserved.
+#
+set exit_on_error = "false"
+#
+# You need a Graph to load the Global Types!
+#
+Use GRAPH USA_Locations_Graph
+#
+# Load Both Local and Global VERTICES
+#
+CREATE LOADING JOB USA_Locations_Graph_Vertex_Job FOR GRAPH USA_Locations_Graph {
+  DEFINE FILENAME DS0 = "./GraphData/Continent.csv";
+  DEFINE FILENAME DS1 = "./GraphData/Country-ISO-Codes.csv";
+  DEFINE FILENAME DS2 = "./GraphData/Region.csv";
+  DEFINE FILENAME DS3 = "./GraphData/Division.csv";
+  DEFINE FILENAME DS4 = "./GraphData/States.csv";
+  DEFINE FILENAME DS5 = "./GraphData/2020-Counties.csv";
+  DEFINE FILENAME DS6 = "./GraphData/2020-Cities.csv";
+  DEFINE FILENAME DS7 = "./GraphData/ZipCodes.csv";
+  DEFINE FILENAME DS8 = "./GraphData/2023-Demographs-County-Data.csv";
+  DEFINE FILENAME DS9 = "./GraphData/2023-Demographs-City-Data.csv";
+  DEFINE FILENAME DS10 = "./GraphData/2023-Demographs-Zip-Data.csv";
+#
+  LOAD DS0 TO VERTEX Continent VALUES ($0, $1, $2) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS1 TO VERTEX Country VALUES ($0, $1, $3, $9, $21) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS2 TO VERTEX Region VALUES($0, $1, $2, $3) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS3 TO VERTEX Division VALUES ($0, $1, $2, $3) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS4 TO VERTEX State VALUES ($0, $1, $2, $5) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS5 TO VERTEX County VALUES ($0, $1, $2) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS6 TO VERTEX City VALUES ($0, $1) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS7 TO VERTEX Zip VALUES ($0,_) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS8 TO VERTEX Demographics VALUES ($0, $1, $2, $3, $5, $7, $9, $11, $51, $53, $55,$21, $23, $25, $27, $29, $59, $61, $63) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS9 TO VERTEX Demographics VALUES ($0, $1, $2, $3, $5, $7, $9, $11, $51, $53, $55, $21, $23, $25, $27, $29, $59, $61, $63) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+  LOAD DS10 TO VERTEX Demographics VALUES ($0, $1, $1, $2, $4, $6, $8, $10, $50, $52, $54, $20, $22, $24, $26, $28, $58, $60, $62) USING SEPARATOR=",", HEADER="true", QUOTE="double", EOL="\n";
+}
+#run the Vertex loading job
+RUN LOADING JOB USA_Locations_Graph_Vertex_Job
+DROP JOB USA_Locations_Graph_Vertex_Job

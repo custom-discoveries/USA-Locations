@@ -1,0 +1,5 @@
+primary_id,region_name,region_id,url
+1,Northeast Region,NER,https://en.wikipedia.org/wiki/Northeastern_United_States
+2,Midwest Region,MWR,https://en.wikipedia.org/wiki/Midwestern_United_States
+3,South Region,SR,https://en.wikipedia.org/wiki/Southern_United_States
+4,West Region,WR,https://en.wikipedia.org/wiki/Western_United_States

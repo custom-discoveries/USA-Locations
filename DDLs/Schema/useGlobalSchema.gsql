@@ -1,0 +1,104 @@
+#
+# Copyright (c) 2025, Custom Discoveries Inc.
+# All rights reserved.
+#
+set exit_on_error = "false"
+#
+# Define Global Vertices and Edges
+# First, DROP EDGES & Verteices
+#
+USE GLOBAL
+DROP EDGE hasCountry
+DROP EDGE hasCounty
+DROP EDGE hasRegion
+DROP EDGE hasDivision
+DROP EDGE hasState
+DROP EDGE hasCity
+DROP EDGE hasZip
+#
+DROP VERTEX Continent
+DROP VERTEX Country
+DROP VERTEX Region
+DROP VERTEX Division
+DROP VERTEX State
+DROP VERTEX County
+DROP VERTEX City
+DROP VERTEX Zip
+#
+# Create Global US Location Vertices
+#
+  #Color #0a840a Icon: earth globe
+  CREATE VERTEX Continent(PRIMARY_ID id STRING, name STRING, url STRING) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true"
+
+  #Color #45a6ee Icon: university
+  CREATE VERTEX Country(PRIMARY_ID id UINT, name STRING, iso3 STRING, continent STRING, url STRING) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true"
+
+  #Color #b95dec Icon: earth
+  CREATE VERTEX Region(PRIMARY_ID id UINT, name STRING, region_id STRING, url STRING) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true"
+
+  #Color #ec0724 Icon: manager (2)
+  CREATE VERTEX Division(PRIMARY_ID id STRING, name STRING, division_id STRING, url STRING) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true"
+
+  #Color #7704ab Icon: address (2)
+  CREATE VERTEX State(PRIMARY_ID fips STRING, name STRING, alias STRING, url STRING) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true"
+
+  #Color #ee6620 Icon: college (1)
+  CREATE VERTEX County(PRIMARY_ID fips STRING, name STRING, state_fips STRING) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true"
+
+  #Color #097df5 Icon: collaboration (1)
+  CREATE VERTEX City(PRIMARY_ID fips STRING, name STRING) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true"
+
+  #Color #f2405e Icon: address (1)
+  CREATE VERTEX Zip(PRIMARY_ID fips STRING, state STRING) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true"
+#
+# Create Global US Location EDGES
+#
+  CREATE DIRECTED EDGE is_located_in(FROM Country, TO Continent, country_name STRING) WITH REVERSE_EDGE="hasCountry"
+  CREATE UNDIRECTED EDGE hasZip(FROM City, TO Zip | FROM County, TO Zip, zipCode STRING)
+  CREATE UNDIRECTED EDGE hasRegion (FROM Country, TO Region)
+  CREATE UNDIRECTED EDGE hasDivision (FROM Region, TO Division)
+  CREATE UNDIRECTED EDGE hasState (FROM Division, TO State)
+
+  CREATE UNDIRECTED EDGE hasCounty(FROM State, TO County)
+  CREATE UNDIRECTED EDGE hasCity(FROM State, TO City | FROM County, TO City)
+#
+# Now add the Global Vertices & Edges to a Graph
+# (Were the graph was created by the Cheetah Tool)
+#
+CREATE GLOBAL SCHEMA_CHANGE JOB add_Global_Types_Job {
+
+  ADD VERTEX Continent TO GRAPH USA_Locations_Graph;
+  ADD VERTEX Country TO GRAPH USA_Locations_Graph;
+  ADD VERTEX Region TO GRAPH USA_Locations_Graph;
+  ADD VERTEX Division TO GRAPH USA_Locations_Graph;
+  ADD VERTEX State TO GRAPH USA_Locations_Graph;
+  ADD VERTEX County TO GRAPH USA_Locations_Graph;
+  ADD VERTEX City TO GRAPH USA_Locations_Graph;
+  ADD VERTEX Zip TO GRAPH USA_Locations_Graph;
+#
+  ADD EDGE is_located_in TO GRAPH USA_Locations_Graph;
+  ADD EDGE hasCounty TO GRAPH USA_Locations_Graph;
+  ADD EDGE hasRegion TO GRAPH USA_Locations_Graph;
+  ADD EDGE hasDivision TO GRAPH USA_Locations_Graph;
+  ADD EDGE hasState TO GRAPH USA_Locations_Graph;
+  ADD EDGE hasCity TO GRAPH USA_Locations_Graph;
+  ADD EDGE hasZip TO GRAPH USA_Locations_Graph;
+}
+RUN GLOBAL SCHEMA_CHANGE JOB add_Global_Types_Job
+DROP JOB add_Global_Types_Job
+
+#
+# Create local Vertices and edges for Graph, passing in Global Vertices and Edges
+#
+USE GRAPH USA_Locations_Graph
+CREATE SCHEMA_CHANGE JOB USA_Locations_Graph_Schema_Job FOR GRAPH USA_Locations_Graph {
+
+  #Color #0b9103 Icon: group(2)
+  ADD VERTEX Demographics(PRIMARY_ID fips STRING, name STRING, state STRING, total_pop UINT, total_male UINT, total_female UINT, sex_ratio FLOAT, under_5 UINT, total_over_18 UINT, male_over_18 UINT, female_over_18 UINT, total_25_34 UINT, total_35_44 UINT, total_45_54 UINT, total_55_59 UINT, total_60_64 UINT, pop_65 UINT, male_over_65 UINT, female_over_65 UINT) WITH STATS="OUTDEGREE_BY_EDGETYPE", PRIMARY_ID_AS_ATTRIBUTE="true";
+
+  #
+  ADD UNDIRECTED EDGE hasCapital(FROM State, TO City);
+  ADD UNDIRECTED EDGE hasDemographics (FROM County, TO Demographics | FROM City, TO Demographics | FROM Zip, TO Demographics);
+}
+RUN SCHEMA_CHANGE JOB USA_Locations_Graph_Schema_Job
+DROP JOB USA_Locations_Graph_Schema_Job

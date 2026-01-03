@@ -1,0 +1,61 @@
+#
+# Copyright (c) 2025, Custom Discoveries Inc.
+# All rights reserved.
+#
+set exit_on_error = "false"
+#
+# You need a Graph to load the Global Types!
+#
+Use GRAPH USA_Locations_Graph
+#
+# Load both Global and Local Edge Data for USA_Locations_Graph
+#
+CREATE LOADING JOB USA_Locations_Graph_Edge_Job FOR GRAPH USA_Locations_Graph
+{
+DEFINE FILENAME DS1 = "./GraphData/Country-ISO-Codes.csv";
+DEFINE FILENAME DS2 = "./GraphData/countryHasUSRegion.csv";
+DEFINE FILENAME DS3 = "./GraphData/regionHasDivision.csv";
+DEFINE FILENAME DS4 = "./GraphData/DivisionToStates.csv";
+DEFINE FILENAME DS5 = "./GraphData/2020-Counties.csv";
+DEFINE FILENAME DS6 = "./GraphData/States.csv";
+DEFINE FILENAME DS7 = "./GraphData/Zip-City-County-State.csv";
+DEFINE FILENAME DS8 = "./GraphData/2020-National-Places-By-County.csv";
+DEFINE FILENAME DS9 = "./GraphData/2023-Demographs-County-Data.csv";
+DEFINE FILENAME DS10 = "./GraphData/2023-Demographs-City-Data.csv";
+DEFINE FILENAME DS11 = "./GraphData/2023-Demographs-Zip-Data.csv";
+#
+  LOAD DS1 TO EDGE is_located_in VALUES ($0, $9, $2) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+  LOAD DS2 TO EDGE hasRegion VALUES($0, $1) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+  LOAD DS3 TO EDGE hasDivision VALUES($0, $1) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+  LOAD DS6 TO EDGE hasCapital VALUES($0,$3) WHERE ($3 != "") USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+  LOAD DS4 TO EDGE hasState VALUES($0 Division, $2 State) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+# Load State to County, or City to County, or Zip to County
+  LOAD DS5 TO EDGE hasCounty VALUES($2 State, $0 County) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+# Load City to Zip or County to Zip, or State to Zip
+  LOAD DS7 TO EDGE hasZip VALUES($4 City, $0 Zip, $0) WHERE($4 != "Not Found") USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+# Load County to City
+  LOAD DS8 TO EDGE hasCity VALUES($5 County, $7 City) WHERE($13 == "TRUE") USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+# Load State to City
+  LOAD DS8 TO EDGE hasCity VALUES($2 State, $7 City) WHERE($13 == "TRUE") USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+# Load County to Demographics
+  LOAD DS9 TO EDGE hasDemographics VALUES($0 County, $0 Demographics) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+# Load City to Demographics
+  LOAD DS10 TO EDGE hasDemographics VALUES($0 City, $0 Demographics) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+# Load Zip to Demographics
+  LOAD DS11 TO EDGE hasDemographics VALUES($0 Zip, $0 Demographics) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double", VERTEX_MUST_EXIST="true";
+
+}
+#run the Edge loading job
+RUN LOADING JOB USA_Locations_Graph_Edge_Job
+#
+# drop the job, indicating the job is completed
+#
+DROP JOB USA_Locations_Graph_Edge_Job

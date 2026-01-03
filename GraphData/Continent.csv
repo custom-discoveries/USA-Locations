@@ -1,0 +1,8 @@
+continent_id,continent_name,url
+AF,Africa,https://en.wikipedia.org/wiki/Africa
+AN,Antarctica,https://en.wikipedia.org/wiki/Antarctica
+AS,Asia,https://en.wikipedia.org/wiki/Asia
+EU,Europe,https://en.wikipedia.org/wiki/Europe
+NA,North America,https://en.wikipedia.org/wiki/North_America
+OC,Oceania,https://en.wikipedia.org/wiki/Oceania
+SA,South America,https://en.wikipedia.org/wiki/South_America

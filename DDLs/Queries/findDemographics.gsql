@@ -1,0 +1,27 @@
+CREATE OR REPLACE QUERY findDemographics(STRING p_state="NC", STRING p_city="Wilmington") FOR GRAPH USA_Locations_Graph {
+  /*
+  */
+  RS = {};
+  STRING citySearch  = "%" + upper(p_city) + "%";
+  CITIES = {City.*};
+  STATES = {State.*};
+
+  IF (p_state != "" AND p_city !="")  THEN
+    RS = SELECT d FROM STATES:s-(hasCounty:hco)-County:co-(hasCity:hc)-City:c-(hasZip:hz)-Zip:z-(hasDemographics:hd)-Demographics:d
+    WHERE(s.alias == upper(p_state) AND upper(c.name) LIKE citySearch) ORDER BY d.total_25_34 DESC;
+
+  ELSE IF (p_state != "")THEN
+    RS = SELECT d FROM STATES:s-(hasCounty:hco)-County:co-(hasCity:hc)-City:c-(hasDemographics:hd)-Demographics:d
+    WHERE(s.alias == upper(p_state)) ORDER BY d.total_25_34 DESC, d.sex_ratio DESC;
+
+  ELSE
+    RS = SELECT d FROM STATES:s-(hasCounty:hco)-County:co-(hasCity:hc)-City:c-(hasDemographics:hd)-Demographics:d
+    WHERE (d.sex_ratio >0 and d.total_25_34 > 0) ORDER BY d.sex_ratio ASC;
+  END;
+
+  PRINT RS;
+}
+UPDATE DESCRIPTION OF QUERY findDemographics "This query finds demographic statistics at the Zip level, when providing State and City parameters.
+        Alternativly, If only specifying State, the query will find demographic at the city level"
+UPDATE DESCRIPTION OF QUERY_PARAM findDemographics.p_state "Finds a demographic statistics for all cities within a specified State"
+UPDATE DESCRIPTION OF QUERY_PARAM findDemographics.p_city "Finds a demographic statistics within a city and specified State"

@@ -1,0 +1,26 @@
+CREATE OR REPLACE QUERY updateZipDemographics(BOOL updateZipState=False, BOOL updateCounty=False) FOR GRAPH USA_Locations_Graph {
+  /*
+  */
+  RS = {};
+  STATES = {State.*};
+  SumAccum<STRING> @tmp_state;
+
+  IF (updateZipState) THEN
+    RS = SELECT z
+       FROM STATES:s-(hasCounty:hco)-County:co-(hasCity:hc)-City:c-(hasZip:hz)-Zip:z
+       ACCUM
+          z.@tmp_state = s.name
+       POST_ACCUM
+         z.state = z.@tmp_state;
+  END;
+
+  IF (updateCounty) THEN
+    RS = SELECT z FROM STATES:s-(hasCounty:hco)-County:co-(hasCity:hc)-City:c-(hasZip:hz)-Zip:z
+    ACCUM INSERT INTO hasZip VALUES (co.fips County, z.fips Zip, z.fips);
+  END;
+
+PRINT RS.size(), RS;
+}
+UPDATE DESCRIPTION OF QUERY updateZipDemographics "This query will update the Zip Vertex with the state name"
+UPDATE DESCRIPTION OF QUERY_PARAM updateZipDemographics.updateZipState "Flag to indicate up dating the name of the state on the zipcode vertex"
+UPDATE DESCRIPTION OF QUERY_PARAM updateZipDemographics.updateCounty "Flag to indicate associate Zipcode with county"

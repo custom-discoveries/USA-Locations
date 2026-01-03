@@ -1,0 +1,57 @@
+﻿State fips,State Name,alias,City fips,Captial,url
+US01,Alabama,AL,US0151000,Montgomery,https://en.wikipedia.org/wiki/Alabama
+US02,Alaska,AK,US0236400,Juneau,https://en.wikipedia.org/wiki/Alaska
+US04,Arizona,AZ,US0455000,Phoenix,https://en.wikipedia.org/wiki/Arizona
+US05,Arkansas,AR,US0541000,Little Rock,https://en.wikipedia.org/wiki/Arkansas
+US06,California,CA,US0664000,Sacramento,https://en.wikipedia.org/wiki/California
+US08,Colorado,CO,US0820000,Denver,https://en.wikipedia.org/wiki/Colorado
+US09,Connecticut,CT,US0937000,Hartford,https://en.wikipedia.org/wiki/Connecticut
+US10,Delaware,DE,US1021200,Dover,https://en.wikipedia.org/wiki/Delaware
+US11,District of Columbia,DC,,,"https://en.wikipedia.org/wiki/Washington,_D.C."
+US12,Florida,FL,US1270600,Tallahassee,https://en.wikipedia.org/wiki/Florida
+US13,Georgia,GA,US1304000,Atlanta,https://en.wikipedia.org/wiki/Georgia
+US15,Hawaii,HI,US1571550,Honolulu,https://en.wikipedia.org/wiki/Hawaii
+US16,Idaho,ID,US1608830,Boise City,https://en.wikipedia.org/wiki/Idaho
+US17,Illinois,IL,US1772000,Springfield,https://en.wikipedia.org/wiki/Illinois
+US18,Indiana,IN,US1836003,Indianapolis,https://en.wikipedia.org/wiki/Indiana
+US19,Iowa,IA,US1921000,Des Moines,https://en.wikipedia.org/wiki/Iowa
+US20,Kansas,KS,US2071000,Topeka,https://en.wikipedia.org/wiki/Kansas
+US21,Kentucky,KY,US2128900,Frankfort,https://en.wikipedia.org/wiki/Kentucky
+US22,Louisiana,LA,US2255000,New Orleans,https://en.wikipedia.org/wiki/Louisiana
+US23,Maine,ME,US2302100,Augusta,https://en.wikipedia.org/wiki/Maine
+US24,Maryland,MD,US2401600,Annapolis,https://en.wikipedia.org/wiki/Maryland
+US25,Massachusetts,MA,US2507000,Boston,https://en.wikipedia.org/wiki/Massachusetts
+US26,Michigan,MI,US2646000,Lansing,https://en.wikipedia.org/wiki/Michigan
+US27,Minnesota,MN,US2758000,St. Paul,https://en.wikipedia.org/wiki/Minnesota
+US28,Mississippi,MS,US2836000,Jackson,https://en.wikipedia.org/wiki/Mississippi
+US29,Missouri,MO,US2937000,Jefferson City,https://en.wikipedia.org/wiki/Missouri
+US30,Montana,MT,US3035600,Helena,https://en.wikipedia.org/wiki/Montana
+US31,Nebraska,NE,US3128000,Lincoln,https://en.wikipedia.org/wiki/Nebraska
+US32,Nevada,NV,US3209700,Carson City,https://en.wikipedia.org/wiki/Nevada
+US33,New Hampshire,NH,US3314200,Concord,https://en.wikipedia.org/wiki/New_Hampshire
+US34,New Jersey,NJ,US3474000,Trenton,https://en.wikipedia.org/wiki/New_Jersey
+US35,New Mexico,NM,US3570500,Santa Fe,https://en.wikipedia.org/wiki/New_Mexico
+US36,New York,NY,US3601000,Albany,https://en.wikipedia.org/wiki/New_York
+US37,North Carolina,NC,US3755000,Raleigh,https://en.wikipedia.org/wiki/North_Carolina
+US38,North Dakota,ND,US3807200,Bismarck,https://en.wikipedia.org/wiki/North_Dakota
+US39,Ohio,OH,US3918000,Columbus,https://en.wikipedia.org/wiki/Ohio
+US40,Oklahoma,OK,US4055000,Oklahoma City,https://en.wikipedia.org/wiki/Oklahoma
+US41,Oregon,OR,US4164900,Salem,https://en.wikipedia.org/wiki/Oregon
+US42,Pennsylvania,PA,US4232800,Harrisburg,https://en.wikipedia.org/wiki/Pennsylvania
+US44,Rhode Island,RI,US4459000,Providence,https://en.wikipedia.org/wiki/Rhode_Island
+US45,South Carolina,SC,US4516000,Columbia,https://en.wikipedia.org/wiki/South_Carolina
+US46,South Dakota,SD,US4649600,Pierre,https://en.wikipedia.org/wiki/South_Dakota
+US47,Tennessee,TN,US4752006,Nashville,https://en.wikipedia.org/wiki/Tennessee
+US48,Texas,TX,US4805000,Austin,https://en.wikipedia.org/wiki/Texas
+US49,Utah,UT,US4967000,Salt Lake City,https://en.wikipedia.org/wiki/Utah
+US50,Vermont,VT,US5046000,Montpelier,https://en.wikipedia.org/wiki/Vermont
+US51,Virginia,VA,US5167000,Richmond,https://en.wikipedia.org/wiki/Virginia
+US53,Washington,WA,US5351300,Olympia,https://en.wikipedia.org/wiki/Washington
+US54,West Virginia,WV,US5414600,Charleston,https://en.wikipedia.org/wiki/West_Virginia
+US55,Wisconsin,WI,US5548000,Madison,https://en.wikipedia.org/wiki/Wisconsin
+US56,Wyoming,WY,US5613900,Cheyenne,https://en.wikipedia.org/wiki/Wyoming
+US60,American Samoa,AS,US6062500,Pago Pago,https://en.wikipedia.org/wiki/American_Samoa
+US66,Guam,GU,US6634750,Hagatna,https://en.wikipedia.org/wiki/Guam
+US69,Commonwealth of the Northern Mariana Islands,MP,US696000,Saipan,"https://en.wikipedia.org/wiki/Northern_Islands_Municipality,_Northern_Mariana_Islands"
+US72,Puerto Rico,PR,US7276770,San Juan,https://en.wikipedia.org/wiki/Puerto_Rico
+US78,Virgin Islands,VI,US7816300,Charlotte Amalie,"https://en.wikipedia.org/wiki/Charlotte_Amalie,_U.S._Virgin_Islands"

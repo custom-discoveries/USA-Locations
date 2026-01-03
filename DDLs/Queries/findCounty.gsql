@@ -1,0 +1,29 @@
+CREATE OR REPLACE QUERY findCounty(STRING p_county,STRING state_alias="NC", STRING p_city="Wilmington") {
+
+  RS1 = {};
+  STRING citySearch  = "%" + upper(p_city) + "%";
+  STRING countySearch  = "%" + upper(p_county) + "%";
+  STATES = {State.*};
+  CITIES = {City.*};
+  COUNTIES = {County.*};
+  MapAccum<STRING, STRING> @@us_states;
+
+  RS = SELECT st FROM STATES:st WHERE st.alias == upper(state_alias) ACCUM @@us_states += (st.alias->st.fips);
+
+
+  IF (p_city !="" AND state_alias != "") THEN
+    RS1 = SELECT co FROM STATES:s-(hasCounty:hco)-County:co-(hasCity:hc)-City:c WHERE (s.alias == upper(state_alias) AND upper(c.name) LIKE citySearch);
+
+  ELSE IF (p_county !="" AND state_alias !="") THEN
+    RS1 = SELECT co FROM COUNTIES:co-(hasCounty:hc)-State:s WHERE (upper(co.name) LIKE countySearch AND co.state_fips == @@us_states.get(upper(state_alias)) );
+
+  ELSE IF (p_county !="") THEN
+    RS1 = SELECT co FROM COUNTIES:co WHERE (upper(co.name) LIKE countySearch);
+  END;
+
+  PRINT RS1;
+}
+UPDATE DESCRIPTION OF QUERY findCounty "This query finds either all counties in the US or a county by State and City"
+UPDATE DESCRIPTION OF QUERY_PARAM findCounty.p_county "Finds a county by County Name, if there is no state_alias specified, then serachs for all counties in the US"
+UPDATE DESCRIPTION OF QUERY_PARAM findCounty.state_alias "Finds a county within a specified State"
+UPDATE DESCRIPTION OF QUERY_PARAM findCounty.p_city "Search for a county within a city and specified State"
