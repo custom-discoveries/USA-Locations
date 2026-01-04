@@ -12,7 +12,7 @@ To install this USA-Locations demo, clone this repository at a terminal command 
   - Select -r if your running from a remote server
   - Select -l if your on running from the same server that is running TigerGraph database
   - Once logged in, select -b to load both the schema and the data.
-[^1]: See Cheetah [README.md](https://github.com/custom-discoveries/Cheetah/README.md) for installation and setup of Cheetah
+[^1]: See Cheetah [README.md](https://github.com/custom-discoveries/Cheetah/blob/main/README.md) for installation and setup of Cheetah
 ### Install Queries
 Once you have installed the Schemea and data, now create and install the queries.
 - In Cheetah, select -q for query menu, then select -b to create and install all queries.
